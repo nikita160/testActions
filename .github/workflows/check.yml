@@ -36,8 +36,6 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         id: pinstall
-        with:
-          python-version-file: pyproject.toml
 
       - name: Install packages
         run: |

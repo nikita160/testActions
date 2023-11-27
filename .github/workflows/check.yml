@@ -9,7 +9,7 @@ on:
 
 jobs:
   codeowners:
-    runs-on: [self-hosted, jammy]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read

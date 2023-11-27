@@ -1,0 +1,60 @@
+---
+name: Codeowners
+on:
+  [pull_request]
+  # pull_request:
+  # branches: ['master']
+  # push:
+  # branches: ['master']
+
+jobs:
+  codeowners:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+            echo "$file was changed"
+            echo "pepe ${{ steps.changed-files.outputs.all_modified_files }}"
+          done
+          echo "pepe ${{ steps.changed-files.outputs.all_modified_files }}"
+
+      - run: |
+          echo ${{ steps.codeowners.outputs.codeowners }};
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        id: pinstall
+        with:
+          python-version: "3.10"
+
+      - name: Install packages
+        run: |
+          pip install codeowners
+
+      - name: Execute python
+        run: |
+          python nikita.py
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/nikita160/testActions/pulls/${PR_NUMBER}/requested_reviewers \
+            -f "reviewers[]=de1n"
+        env:
+          env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}

@@ -36,8 +36,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         id: pinstall
-        with:
-          python-version: '3.10
+        with: python-version: '3.10'
 
       - name: Install packages
         run: |

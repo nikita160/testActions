@@ -55,5 +55,6 @@ jobs:
             /repos/nikita160/testActions/pulls/${PR_NUMBER}/requested_reviewers \
             -f "reviewers[]=de1n"
         env:
-          GH_TOKEN: ${{ github.token }}
+          env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}

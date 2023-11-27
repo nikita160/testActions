@@ -45,7 +45,7 @@ jobs:
 
       - name: Execute python
         run: |
-          INPUT_STORE=${{ steps.changed-files.outputs.all_modified_files }} python nikita.py
+          python nikita.py
   api:
     runs-on: ubuntu-latest
     steps:
